@@ -1,0 +1,1082 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<OperationConfig>
+    <Action path="Header\@Action" />
+
+    <ExistenceCheck from="BCONSUMER" target="CNSM_ID">
+        <QueryConditions>
+            <QueryCondition name="CNSM_UniversalKey" path="ConsumerBestRecord\BestRecord\Attributes\UniversalKey" />
+        </QueryConditions>
+    </ExistenceCheck>
+
+    <ArrivalLog name="RCNSMARRIVALLOG">
+        <DocumentUUID path="Header\DocumentUUID" />
+        <RecordUUID path="ConsumerBestRecord\@RecordUUID" />
+    </ArrivalLog>
+
+    <Tables>
+        <Table name="BCONSUMER" reference-table="false">
+            <Columns>
+                <Column name="CNSM_ID" auto-generation="true" primary-key="true" query-condition="true" />
+                <Column path="ConsumerBestRecord\BestRecord\Attributes\RecordTimestamp" name="CNSM_RecordTimestamp" data-type="datetime" />
+                <Column path="ConsumerBestRecord\BestRecord\Attributes\SourceTimestamp" name="CNSM_SourceTimestamp" data-type="datetime" />
+                <Column path="ConsumerBestRecord\BestRecord\Attributes\CSRInstanceCode" name="CNSM_CSRInstanceCode" />
+                <Column path="ConsumerBestRecord\BestRecord\Attributes\CSRInstanceDescription" name="CNSM_CSRInstanceDescription" />
+                <Column path="ConsumerBestRecord\BestRecord\Attributes\UniversalKey" name="CNSM_UniversalKey" />
+                <Column path="ConsumerBestRecord\BestRecord\Attributes\RecognitionServiceCode" name="CNSM_RecognitionServiceCode" />
+                <Column path="ConsumerBestRecord\BestRecord\PersonalData\RegDate" name="CNSM_RegDate" data-type="datetime" />
+                <Column name="CNSM_RegTouchPointForeignKey" query-from="RTOUCHPOINT\TCPT_ID">
+                    <Condition name="TCPT_BrandCode" path="ConsumerBestRecord\BestRecord\PersonalData\RegTouchPointSourceSystem\BrandCode" />
+                    <Condition name="TCPT_MarketCode" path="ConsumerBestRecord\BestRecord\PersonalData\RegTouchPointSourceSystem\MarketCode" />
+                    <Condition name="TCPT_TouchPointCode" path="ConsumerBestRecord\BestRecord\PersonalData\RegTouchPointSourceSystem\TouchPointCode" />
+                </Column>
+                <Column name="CNSM_LastUpdateTouchPointForeignKey" query-from="RTOUCHPOINT\TCPT_ID">
+                    <Condition name="TCPT_BrandCode" path="ConsumerBestRecord\BestRecord\PersonalData\LastUpdateTouchPointSourceSystem\BrandCode" />
+                    <Condition name="TCPT_MarketCode" path="ConsumerBestRecord\BestRecord\PersonalData\LastUpdateTouchPointSourceSystem\MarketCode" />
+                    <Condition name="TCPT_TouchPointCode" path="ConsumerBestRecord\BestRecord\PersonalData\LastUpdateTouchPointSourceSystem\TouchPointCode" />
+                </Column>
+                <Column path="ConsumerBestRecord\BestRecord\PersonalData\EformRegFlag" name="CNSM_EformRegFlag" data-type="boolean" />
+                <Column name="CNSM_RegPersonnelForeignKey" query-from="RPERSONNEL\PRSN_ID">
+                    <Condition name="PRSN_BrandCode" path="ConsumerBestRecord\BestRecord\PersonalData\RegPersonnelSourceSystem\BrandCode" />
+                    <Condition name="PRSN_MarketCode" path="ConsumerBestRecord\BestRecord\PersonalData\RegPersonnelSourceSystem\MarketCode" />
+                    <Condition name="PRSN_PersonnelCode" path="ConsumerBestRecord\BestRecord\PersonalData\RegPersonnelSourceSystem\PersonnelCode" />
+                </Column>
+                <Column path="ConsumerBestRecord\BestRecord\PersonalData\NameGenderCode" name="CNSM_NameGenderCode" />
+                <Column path="ConsumerBestRecord\BestRecord\PersonalData\GenderCode" name="CNSM_GenderCode" />
+                <Column path="ConsumerBestRecord\BestRecord\PersonalData\CivilStatusCode" name="CNSM_CivilStatusCode" />
+                <Column path="ConsumerBestRecord\BestRecord\PersonalData\ConsumerCountryCode_ISO3" name="CNSM_ConsumerCountryCode_ISO3" />
+                <Column path="ConsumerBestRecord\BestRecord\PersonalData\SpokenLanguageCode" name="CNSM_SpokenLanguageCode" />
+                <Column path="ConsumerBestRecord\BestRecord\PersonalData\WrittenLanguageCode" name="CNSM_WrittenLanguageCode" />
+                <Column path="ConsumerBestRecord\BestRecord\PersonalData\BirthDay" name="CNSM_BirthDay" data-type="int" />
+                <Column path="ConsumerBestRecord\BestRecord\PersonalData\BirthMonth" name="CNSM_BirthMonth" data-type="int" />
+                <Column path="ConsumerBestRecord\BestRecord\PersonalData\BirthYear" name="CNSM_BirthYear" data-type="int" />
+                <Column path="ConsumerBestRecord\BestRecord\PersonalData\EstimatedBirthYear" name="CNSM_EstimatedBirthYear" data-type="int" />
+                <Column path="ConsumerBestRecord\BestRecord\PersonalData\NameFilledFlag" name="CNSM_NameFilledFlag" data-type="boolean" />
+            </Columns>
+            <RelatedTables>
+                <RelatedTable name="BDERIVEDCONSUMER" path="ConsumerBestRecord\DerivedBestRecordList\DerivedBestRecord" />
+                <RelatedTable name="BDERIVEDCONSUMERCHANGELOG" path="ConsumerBestRecord\DerivedBestRecordList\DerivedBestRecord" />
+                <RelatedTable name="BSOURCECONSUMER" path="ConsumerBestRecord\BestRecord\SourceSystemList\SourceSystem" />
+                <RelatedTable name="BCUSTOMATTR" path="ConsumerBestRecord\BestRecord\CustomAttributeList\CustomAttribute" />
+                <RelatedTable name="BPROGRAM" path="ConsumerBestRecord\BestRecord\ProgramList\Program" />
+                <RelatedTable name="BCALCBUSINESSVARIABLES" path="ConsumerBestRecord\BestRecord\CalculatedBusinessVariables" />
+                <RelatedTable name="BCALCBUSINESSVARIABLESCHANGELOG" path="ConsumerBestRecord\BestRecord\CalculatedBusinessVariables" />
+                <RelatedTable name="RCONSUMERREGTOUCHPOINT" path="ConsumerBestRecord\BestRecord\PersonalData\RegTouchPointSourceSystem" />
+                <RelatedTable name="RCONSUMERLASTUPDATETOUCHPOINT" path="ConsumerBestRecord\BestRecord\PersonalData\LastUpdateTouchPointSourceSystem" />
+                <RelatedTable name="RCONSUMERREGPERSONNEL" path="ConsumerBestRecord\BestRecord\PersonalData\RegPersonnelSourceSystem" />
+            </RelatedTables>
+        </Table>
+
+        <Table name="BSOURCECONSUMER" reference-table="true" operation-mode="APPEND" >
+            <Columns>
+                <Column name="StartDate" auto-generation="true" skip-update="true" data-type="DATETIME" is-start-date="true" need-query="true" />
+                <Column name="EndDate" auto-generation="true" skip-insert="true" data-type="DATETIME"/>
+                <Column name="CurrentFlag" auto-generation="true" data-type="BOOLEAN"/>
+                <Column name="CSSM_ID" auto-generation="true" primary-key="true" />
+                <Column name="CSSM_CNSM_ID"  query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="@Code" name="CSSM_SourceSystemCode" />
+                <Column path="SourceTimestamp" name="CSSM_SourceTimestamp" data-type="datetime" skip-update="true" />
+                <Column path="MarketCode" name="CSSM_MarketCode" replace-by="AffiliateCode" />
+                <Column path="AffiliateCode" name="CSSM_AffiliateCode" replace-by="MarketCode" />
+                <Column path="DivisionCode" name="CSSM_DivisionCode" replace-by="BrandCode" />
+                <Column path="BrandCode" name="CSSM_BrandCode" replace-by="DivisionCode" />
+                <Column path="ConsumerId" name="CSSM_ConsumerId" clean-table="BSOURCECONSUMER" need-currentflag="true" need-query="false" >
+                    <Clean-parameter name="CSSM_BrandCode" path="BrandCode" />
+                    <Clean-parameter name="CSSM_MarketCode" path="MarketCode" />
+                    <Clean-parameter name="CSSM_SourceSystemCode" path="@Code" />
+                </Column>
+                <Column path="TerminalId" name="CSSM_TerminalId" />
+            </Columns>
+        </Table>
+
+        <Table name="BDERIVEDCONSUMER" reference-table="true">
+            <Columns>
+                <Column name="DRCN_ID" auto-generation="true" primary-key="true" />
+                <Column name="DRCN_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="@Level" name="DRCN_Level" data-type="int" />
+                <Column path="Attributes\RecordTimestamp" name="DRCN_RecordTimestamp" data-type="datetime" />
+                <Column path="Attributes\SourceTimestamp" name="DRCN_SourceTimestamp" data-type="datetime" />
+                <Column path="Attributes\MarketCode" name="DRCN_MarketCode" />
+                <Column path="Attributes\BrandCode" name="DRCN_BrandCode" />
+                <Column name="DRCN_TouchPointForeignKey" query-from="RTOUCHPOINT\TCPT_ID">
+                    <Condition name="TCPT_BrandCode" path="Attributes\BrandCode" />
+                    <Condition name="TCPT_MarketCode" path="Attributes\MarketCode" />
+                    <Condition name="TCPT_TouchPointCode" path="Attributes\TouchPointCode" />
+                </Column>
+                <Column path="Attributes\RetailerHierarchyCode" name="DRCN_RetailerHierarchyCode" />
+                <Column path="PersonalData\RegDate" name="DRCN_RegDate" data-type="datetime" />
+                <Column name="DRCN_RegTouchPointForeignKey" query-from="RTOUCHPOINT\TCPT_ID">
+                    <Condition name="TCPT_BrandCode" path="PersonalData\RegTouchPointSourceSystem\BrandCode" />
+                    <Condition name="TCPT_MarketCode" path="PersonalData\RegTouchPointSourceSystem\MarketCode" />
+                    <Condition name="TCPT_TouchPointCode" path="PersonalData\RegTouchPointSourceSystem\TouchPointCode" />
+                </Column>
+                <Column name="DRCN_LastUpdateTouchPointForeignKey" query-from="RTOUCHPOINT\TCPT_ID">
+                    <Condition name="TCPT_BrandCode" path="PersonalData\LastUpdateTouchPointSourceSystem\BrandCode" />
+                    <Condition name="TCPT_MarketCode" path="PersonalData\LastUpdateTouchPointSourceSystem\MarketCode" />
+                    <Condition name="TCPT_TouchPointCode" path="PersonalData\LastUpdateTouchPointSourceSystem\TouchPointCode" />
+                </Column>
+                <Column path="PersonalData\EformRegFlag" name="DRCN_EformRegFlag" data-type="boolean" />
+                <Column path="PersonalData\RegPersonnelSourceSystem\Code" name="DRCN_RegPersonnelId" />
+                <Column name="DRCN_RegPersonnelForeignKey" query-from="RPERSONNEL\PRSN_ID">
+                    <Condition name="PRSN_BrandCode" path="PersonalData\RegPersonnelSourceSystem\BrandCode" />
+                    <Condition name="PRSN_MarketCode" path="PersonalData\RegPersonnelSourceSystem\MarketCode" />
+                    <Condition name="PRSN_PersonnelCode" path="PersonalData\RegPersonnelSourceSystem\PersonnelCode" />
+                </Column>
+                <Column path="PersonalData\NameGenderCode" name="DRCN_NameGenderCode" />
+                <Column path="PersonalData\GenderCode" name="DRCN_GenderCode" />
+                <Column path="PersonalData\CivilStatusCode" name="DRCN_CivilStatusCode" />
+                <Column path="PersonalData\ConsumerCountryCode_ISO3" name="DRCN_ConsumerCountryCode_ISO3" />
+                <Column path="PersonalData\SpokenLanguageCode" name="DRCN_SpokenLanguageCode" />
+                <Column path="PersonalData\WrittenLanguageCode" name="DRCN_WrittenLanguageCode" />
+                <Column path="PersonalData\BirthDay" name="DRCN_BirthDay" data-type="int" />
+                <Column path="PersonalData\BirthMonth" name="DRCN_BirthMonth" data-type="int" />
+                <Column path="PersonalData\BirthYear" name="DRCN_BirthYear" data-type="int" />
+                <Column path="PersonalData\EstimatedBirthYear" name="DRCN_EstimatedBirthYear" data-type="int" />
+                <Column path="PersonalData\NameFilledFlag" name="DRCN_NameFilledFlag" data-type="boolean" />
+                <Column path="PersonalData\Salutation" name="DRCN_Salutation" />
+                <Column path="PersonalData\LocalFirstName" name="DRCN_LocalFirstName" />
+                <Column path="PersonalData\LocalMiddleName" name="DRCN_LocalMiddleName" />
+                <Column path="PersonalData\LocalLastName" name="DRCN_LocalLastName" />
+                <Column path="PersonalData\LocalFullName" name="DRCN_LocalFullName" />
+                <Column path="PersonalData\LocalFirstName2" name="DRCN_LocalFirstName2" />
+                <Column path="PersonalData\LocalMiddleName2" name="DRCN_LocalMiddleName2" />
+                <Column path="PersonalData\LocalLastName2" name="DRCN_LocalLastName2" />
+                <Column path="PersonalData\LocalFullName2" name="DRCN_LocalFullName2" />
+                <Column path="PersonalData\EnglishFirstName" name="DRCN_EnglishFirstName" />
+                <Column path="PersonalData\EnglishMiddleName" name="DRCN_EnglishMiddleName" />
+                <Column path="PersonalData\EnglishLastName" name="DRCN_EnglishLastName" />
+                <Column path="PersonalData\EnglishFullName" name="DRCN_EnglishFullName" />
+                <Column path="PersonalData\IdentityNum" name="DRCN_IdentityNum" />
+                <Column path="PersonalData\PassportNum" name="DRCN_PassportNum" />
+                <Column path="PersonalData\SocialSecurityNum" name="DRCN_SocialSecurityNum" />
+                <Column path="PersonalData\Company" name="DRCN_Company" />
+                <Column path="PersonalData\Department" name="DRCN_Department" />
+                <Column path="PersonalData\JobTitle" name="DRCN_JobTitle" />
+                <Column path="PersonalData\YearlyIncome" name="DRCN_YearlyIncome" data-type="double" />
+                <Column path="PersonalData\SkinType\BrandCode" name="DRCN_SkinTypeBrandCode" />
+                <Column path="PersonalData\SkinType\SkinTypeCode" name="DRCN_SkinTypeCode" />
+                <Column path="PersonalData\Currency\CurrencyCode" name="DRCN_PersonalCurrencyCode" />
+                <Column path="PersonalData\Ethnicity\MarketCode" name="DRCN_EthnicityMarketCode" />
+                <Column path="PersonalData\Ethnicity\EthnicityCode" name="DRCN_EthnicityCode" />
+                <Column path="PersonalData\ConsumerClassCode" name="DRCN_ConsumerClassCode" />
+                <Column name="DRCN_PreferredTouchPointForeignKey" query-from="RTOUCHPOINT\TCPT_ID">
+                    <Condition name="TCPT_BrandCode" path="PersonalData\PreferredTouchPointCodeSourceSystem\BrandCode" />
+                    <Condition name="TCPT_MarketCode" path="PersonalData\PreferredTouchPointCodeSourceSystem\MarketCode" />
+                    <Condition name="TCPT_TouchPointCode" path="PersonalData\PreferredTouchPointCodeSourceSystem\TouchPointCode" />
+                </Column>
+                <Column name="DRCN_LastVisitTouchPointForeignKey" query-from="RTOUCHPOINT\TCPT_ID">
+                    <Condition name="TCPT_BrandCode" path="PersonalData\LastVisitTouchPointCodeSourceSystem\BrandCode" />
+                    <Condition name="TCPT_MarketCode" path="PersonalData\LastVisitTouchPointCodeSourceSystem\MarketCode" />
+                    <Condition name="TCPT_TouchPointCode" path="PersonalData\LastVisitTouchPointCodeSourceSystem\TouchPointCode" />
+                </Column>
+                <Column path="PersonalData\AssignedPersonnelSourceSystem\Code" name="DRCN_AssignedPersonnelId" />
+                <Column name="DRCN_AssignedPersonnelForeignKey" query-from="RPERSONNEL\PRSN_ID">
+                    <Condition name="PRSN_BrandCode" path="PersonalData\AssignedPersonnelSourceSystem\BrandCode" />
+                    <Condition name="PRSN_MarketCode" path="PersonalData\AssignedPersonnelSourceSystem\MarketCode" />
+                    <Condition name="PRSN_PersonnelCode" path="PersonalData\AssignedPersonnelSourceSystem\PersonnelCode" />
+                </Column>
+                <Column path="PersonalData\GeneralOptInFlag" name="DRCN_GeneralOptInFlag" data-type="boolean" />
+                <Column path="PersonalData\GeneralOptInDate" name="DRCN_GeneralOptInDate" data-type="datetime" />
+                <Column path="PersonalData\DoNotContact" name="DRCN_DoNotContact" data-type="boolean" />
+                <Column path="PersonalData\AgeRange\AgeFrom" name="DRCN_AgeFrom" data-type="int" />
+                <Column path="PersonalData\AgeRange\AgeTo" name="DRCN_AgeTo" data-type="int" />
+                <Column path="PersonalData\Nationality" name="DRCN_Nationality" />
+            </Columns>
+            <RelatedTables>
+                <!--<RelatedTable name="BSOURCEDERIVEDCONSUMER" path="SourceSystemList\SourceSystem" />-->
+                <RelatedTable name="BNOTE" path="NoteList\Note" />
+                <RelatedTable name="BCUSTOMGROUP" path="CustomerGroupList\CustomerGroup" />
+                <RelatedTable name="BCONTACTADDRESS" path="ContactInformation\AddressList\Address" />
+                <RelatedTable name="BCONTACTEMEDIA" path="ContactInformation\EMediaList\EMedia" />
+                <RelatedTable name="BCONTACTPHONE" path="ContactInformation\PhoneList\Phone" />
+                <RelatedTable name="BHAIRCONCERN" path="PersonalData\HairConcernsList\HairConcerns" />
+                <RelatedTable name="BHAIRTYPE" path="PersonalData\HairTypeList\HairType" />
+                <RelatedTable name="BHOBBY" path="PersonalData\HobbyList\Hobby" />
+                <RelatedTable name="BCROSSBRANDOPTIN" path="CrossBrandOptInList\CrossBrandOptIn" />
+                <RelatedTable name="BDERIVEDCUSTOMATTR" path="CustomAttributeList\CustomAttribute" />
+                <RelatedTable name="BOPTIN" path="OptInList\OptIn" />
+                <RelatedTable name="BREMARK" path="RemarkList\Remark" />
+                <RelatedTable name="BTERMSANDCONDITION" path="TermsAndConditionList\TermsAndCondition" />
+                <RelatedTable name="BSKINCONCERN" path="PersonalData\SkinConcernsList\SkinConcerns" />
+                <RelatedTable name="BAUXILIARYATTR" path="AuxiliaryAttributeList\AuxiliaryAttribute" />
+                <RelatedTable name="BMAKEUPCONCERN" path="PersonalData\MakeUpConcernList\MakeUpConcerns" />
+                <RelatedTable name="BDERIVEDCALCBUSINESSVARS" path="CalculatedBusinessVariables" />
+                <RelatedTable name="RDERIVEDCONSUMERTOUCHPOINT" path="Attributes" />
+                <RelatedTable name="RDERIVEDCONSUMERREGTOUCHPOINT" path="PersonalData\RegTouchPointSourceSystem" />
+                <RelatedTable name="RDERIVEDCONSUMERLASTUPDATETOUCHPOINT" path="PersonalData\LastUpdateTouchPointSourceSystem" />
+                <RelatedTable name="RDERIVEDCONSUMERREGPERSONNEL" path="PersonalData\RegPersonnelSourceSystem" />
+                <RelatedTable name="RDERIVEDCONSUMERPREFERREDTOUCHPOINT" path="PersonalData\PreferredTouchPointCodeSourceSystem" />
+                <RelatedTable name="RDERIVEDCONSUMERLASTVISITTOUCHPOINT" path="PersonalData\LastVisitTouchPointCodeSourceSystem" />
+                <RelatedTable name="RDERIVEDCONSUMERASSIGNEDPERSONNEL" path="PersonalData\AssignedPersonnelSourceSystem" />
+            </RelatedTables>
+        </Table>
+
+        <Table name="BDERIVEDCONSUMERCHANGELOG" reference-table="true" operation-mode="APPEND">
+            <Columns>
+                <Column name="StartDate" auto-generation="true" data-type="DATETIME" skip-update="true" is-start-date="true" />
+                <Column name="EndDate" auto-generation="true" data-type="DATETIME" skip-insert="true" />
+                <Column name="CurrentFlag" auto-generation="true" data-type="BOOLEAN" />
+                <Column name="DCCL_ID" auto-generation="true" primary-key="true" />
+                <Column name="DCCL_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="@Level" name="DCCL_Level" data-type="int" />
+                <Column path="Attributes\RecordTimestamp" name="DCCL_RecordTimestamp" data-type="datetime" />
+                <Column path="Attributes\SourceTimestamp" name="DCCL_SourceTimestamp" data-type="datetime" />
+                <Column path="Attributes\MarketCode" name="DCCL_MarketCode" />
+                <Column path="Attributes\BrandCode" name="DCCL_BrandCode" />
+                <Column path="Attributes\RetailerHierarchyCode" name="DCCL_RetailerHierarchyCode" />
+                <Column name="DCCL_TouchPointForeignKey" query-from="RTOUCHPOINT\TCPT_ID">
+                    <Condition name="TCPT_BrandCode" path="Attributes\BrandCode" />
+                    <Condition name="TCPT_MarketCode" path="Attributes\MarketCode" />
+                    <Condition name="TCPT_TouchPointCode" path="Attributes\TouchPointCode" />
+                </Column>
+                <Column path="PersonalData\RegDate" name="DCCL_RegDate" data-type="datetime" />
+                <!--<Column path="PersonalData\RegTouchPointSourceSystem\SourceTimestamp" name="DCCL_RegTouchPointSourceTimestamp" data-type="datetime" />-->
+                <Column name="DCCL_RegTouchPointForeignKey" query-from="RTOUCHPOINT\TCPT_ID">
+                    <Condition name="TCPT_BrandCode" path="PersonalData\RegTouchPointSourceSystem\BrandCode" />
+                    <Condition name="TCPT_MarketCode" path="PersonalData\RegTouchPointSourceSystem\MarketCode" />
+                    <Condition name="TCPT_TouchPointCode" path="PersonalData\RegTouchPointSourceSystem\TouchPointCode" />
+                </Column>
+                <!--<Column path="PersonalData\LastUpdateTouchPointSourceSystem\SourceTimestamp" name="DCCL_LastUpdateTouchPointSourceTimeStamp" data-type="datetime"/>-->
+                <Column name="DCCL_LastUpdateTouchPointForeignKey" query-from="RTOUCHPOINT\TCPT_ID">
+                    <Condition name="TCPT_BrandCode" path="PersonalData\LastUpdateTouchPointSourceSystem\BrandCode" />
+                    <Condition name="TCPT_MarketCode" path="PersonalData\LastUpdateTouchPointSourceSystem\MarketCode" />
+                    <Condition name="TCPT_TouchPointCode" path="PersonalData\LastUpdateTouchPointSourceSystem\TouchPointCode" />
+                </Column>
+                <Column path="PersonalData\RegPersonnelSourceSystem\Code" name="DCCL_RegPersonnelId" />
+                <!--<Column path="PersonalData\RegPersonnelSourceSystem\SourceTimestamp" name="DCCL_RegPersonnelSourceTimestamp" data-type="datetime" />-->
+                <Column path="PersonalData\RegPersonnelSourceSystem\AffiliateCode" name="DCCL_RegPersonnelAffiliateCode" />
+                <Column path="PersonalData\RegPersonnelSourceSystem\DivisionCode" name="DCCL_RegPersonnelDivisionCode" />
+                <Column name="DCCL_RegPersonnelForeignKey" query-from="RPERSONNEL\PRSN_ID">
+                    <Condition name="PRSN_BrandCode" path="PersonalData\RegPersonnelSourceSystem\BrandCode" />
+                    <Condition name="PRSN_MarketCode" path="PersonalData\RegPersonnelSourceSystem\MarketCode" />
+                    <Condition name="PRSN_PersonnelCode" path="PersonalData\RegPersonnelSourceSystem\PersonnelCode" />
+                </Column>
+                <Column path="PersonalData\NameGenderCode" name="DCCL_NameGenderCode" />
+                <Column path="PersonalData\GenderCode" name="DCCL_GenderCode" />
+                <Column path="PersonalData\CivilStatusCode" name="DCCL_CivilStatusCode" />
+                <Column path="PersonalData\ConsumerCountryCode_ISO3" name="DCCL_ConsumerCountryCode_ISO3" />
+                <Column path="PersonalData\SpokenLanguageCode" name="DCCL_SpokenLanguageCode" />
+                <Column path="PersonalData\WrittenLanguageCode" name="DCCL_WrittenLanguageCode" />
+                <Column path="PersonalData\BirthDay" name="DCCL_BirthDay" data-type="int" />
+                <Column path="PersonalData\BirthMonth" name="DCCL_BirthMonth" data-type="int" />
+                <Column path="PersonalData\BirthYear" name="DCCL_BirthYear" data-type="int" />
+                <Column path="PersonalData\EstimatedBirthYear" name="DCCL_EstimatedBirthYear" data-type="int" />
+                <Column path="PersonalData\NameFilledFlag" name="DCCL_NameFilledFlag" data-type="boolean" />
+                <Column path="PersonalData\Salutation" name="DCCL_Salutation" />
+                <Column path="PersonalData\LocalFirstName" name="DCCL_LocalFirstName" />
+                <Column path="PersonalData\LocalMiddleName" name="DCCL_LocalMiddleName" />
+                <Column path="PersonalData\LocalLastName" name="DCCL_LocalLastName" />
+                <Column path="PersonalData\LocalFullName" name="DCCL_LocalFullName" />
+                <Column path="PersonalData\LocalFirstName2" name="DCCL_LocalFirstName2" />
+                <Column path="PersonalData\LocalMiddleName2" name="DCCL_LocalMiddleName2" />
+                <Column path="PersonalData\LocalLastName2" name="DCCL_LocalLastName2" />
+                <Column path="PersonalData\LocalFullName2" name="DCCL_LocalFullName2" />
+                <Column path="PersonalData\EnglishFirstName" name="DCCL_EnglishFirstName" />
+                <Column path="PersonalData\EnglishMiddleName" name="DCCL_EnglishMiddleName" />
+                <Column path="PersonalData\EnglishLastName" name="DCCL_EnglishLastName" />
+                <Column path="PersonalData\EnglishFullName" name="DCCL_EnglishFullName" />
+                <Column path="PersonalData\IdentityNum" name="DCCL_IdentityNum" />
+                <Column path="PersonalData\PassportNum" name="DCCL_PassportNum" />
+                <Column path="PersonalData\SocialSecurityNum" name="DCCL_SocialSecurityNum" />
+                <Column path="PersonalData\Company" name="DCCL_Company" />
+                <Column path="PersonalData\Department" name="DCCL_Department" />
+                <Column path="PersonalData\JobTitle" name="DCCL_JobTitle" />
+                <Column path="PersonalData\YearlyIncome" name="DCCL_YearlyIncome" data-type="double" />
+                <Column path="PersonalData\SkinType\BrandCode" name="DCCL_SkinTypeBrandCode" />
+                <Column path="PersonalData\SkinType\SkinTypeCode" name="DCCL_SkinTypeCode" />
+                <Column path="PersonalData\Currency\CurrencyCode" name="DCCL_PersonalCurrencyCode" />
+                <Column path="PersonalData\Ethnicity\MarketCode" name="DCCL_EthnicityMarketCode" />
+                <Column path="PersonalData\Ethnicity\EthnicityCode" name="DCCL_EthnicityCode" />
+                <Column path="PersonalData\ConsumerClassCode" name="DCCL_ConsumerClassCode" />
+                <!--<Column path="PersonalData\PreferredTouchPointCodeSourceSystem\SourceTimestamp" name="DCCL_PreferredTouchPointSourceTimestamp" data-type="datetime" />-->
+                <Column name="DCCL_PreferredTouchPointForeignKey" query-from="RTOUCHPOINT\TCPT_ID">
+                    <Condition name="TCPT_BrandCode" path="PersonalData\PreferredTouchPointCodeSourceSystem\BrandCode" />
+                    <Condition name="TCPT_MarketCode" path="PersonalData\PreferredTouchPointCodeSourceSystem\MarketCode" />
+                    <Condition name="TCPT_TouchPointCode" path="PersonalData\PreferredTouchPointCodeSourceSystem\TouchPointCode" />
+                </Column>
+                <!--<Column path="PersonalData\LastVisitTouchPointCodeSourceSystem\SourceTimestamp" name="DCCL_LastVisitTouchPointSourceTimestamp" data-type="datetime" />-->
+                <Column name="DCCL_LastVisitTouchPointForeignKey" query-from="RTOUCHPOINT\TCPT_ID">
+                    <Condition name="TCPT_BrandCode" path="PersonalData\LastVisitTouchPointCodeSourceSystem\BrandCode" />
+                    <Condition name="TCPT_MarketCode" path="PersonalData\LastVisitTouchPointCodeSourceSystem\MarketCode" />
+                    <Condition name="TCPT_TouchPointCode" path="PersonalData\LastVisitTouchPointCodeSourceSystem\TouchPointCode" />
+                </Column>
+                <Column path="PersonalData\AssignedPersonnelSourceSystem\Code" name="DCCL_AssignedPersonnelId" />
+                <!--<Column path="PersonalData\AssignedPersonnelSourceSystem\SourceTimestamp" name="DCCL_AssignedPersonnelSourceTimestamp" data-type="datetime" />-->
+                <Column path="PersonalData\AssignedPersonnelSourceSystem\AffiliateCode" name="DCCL_AssignedPersonnelAffiliateCode" />
+                <Column path="PersonalData\AssignedPersonnelSourceSystem\DivisionCode" name="DCCL_AssignedPersonnelDivisionCode" />
+                <Column name="DCCL_AssignedPersonnelForeignKey" query-from="RPERSONNEL\PRSN_ID">
+                    <Condition name="PRSN_BrandCode" path="PersonalData\AssignedPersonnelSourceSystem\BrandCode" />
+                    <Condition name="PRSN_MarketCode" path="PersonalData\AssignedPersonnelSourceSystem\MarketCode" />
+                    <Condition name="PRSN_PersonnelCode" path="PersonalData\AssignedPersonnelSourceSystem\PersonnelCode" />
+                </Column>
+                <Column path="PersonalData\GeneralOptInFlag" name="DCCL_GeneralOptInFlag" data-type="boolean" />
+                <Column path="PersonalData\GeneralOptInDate" name="DCCL_GeneralOptInDate" data-type="datetime" />
+                <Column path="PersonalData\DoNotContact" name="DCCL_DoNotContact" data-type="boolean" />
+                <Column path="PersonalData\AgeRange\AgeFrom" name="DCCL_AgeFrom" data-type="int" />
+                <Column path="PersonalData\AgeRange\AgeTo" name="DCCL_AgeTo" data-type="int" />
+                <Column path="PersonalData\Nationality" name="DCCL_Nationality" />
+            </Columns>
+            <RelatedTables>
+                <RelatedTable name="BNOTECHANGELOG" path="NoteList\Note" />
+                <RelatedTable name="BCUSTOMGROUPCHANGELOG" path="CustomerGroupList\CustomerGroup" />
+                <RelatedTable name="BCONTACTADDRESSCHANGELOG" path="ContactInformation\AddressList\Address" />
+                <RelatedTable name="BCONTACTEMEDIACHANGELOG" path="ContactInformation\EMediaList\EMedia" />
+                <RelatedTable name="BCONTACTPHONECHANGELOG" path="ContactInformation\PhoneList\Phone" />
+                <RelatedTable name="BHAIRCONCERNCHANGELOG" path="PersonalData\HairConcernsList\HairConcerns" />
+                <RelatedTable name="BHAIRTYPECHANGELOG" path="PersonalData\HairTypeList\HairType" />
+                <RelatedTable name="BHOBBYCHANGELOG" path="PersonalData\HobbyList\Hobby" />
+                <RelatedTable name="BCROSSBRANDOPTINCHANGELOG" path="CrossBrandOptInList\CrossBrandOptIn" />
+                <RelatedTable name="BDERIVEDCUSTOMATTRCHANGELOG" path="CustomAttributeList\CustomAttribute" />
+                <RelatedTable name="BOPTINCHANGELOG" path="OptInList\OptIn" />
+                <RelatedTable name="BREMARKCHANGELOG" path="RemarkList\Remark" />
+                <RelatedTable name="BTERMSANDCONDITIONCHANGELOG" path="TermsAndConditionList\TermsAndCondition" />
+                <RelatedTable name="BSKINCONCERNCHANGELOG" path="PersonalData\SkinConcernsList\SkinConcerns" />
+                <RelatedTable name="BAUXILIARYATTRCHANGELOG" path="AuxiliaryAttributeList\AuxiliaryAttribute" />
+                <RelatedTable name="BMAKEUPCONCERNCHANGELOG" path="PersonalData\MakeUpConcernList\MakeUpConcerns" />
+                <RelatedTable name="BDERIVEDCALCBUSINESSVARSCHANGELOG" path="CalculatedBusinessVariables" />
+                <RelatedTable name="RDERIVEDCONSUMERCHANGELOGTOUCHPOINT" path="Attributes" />
+                <RelatedTable name="RDERIVEDCONSUMERCHANGELOGREGTOUCHPOINT" path="PersonalData\RegTouchPointSourceSystem" />
+                <RelatedTable name="RDERIVEDCONSUMERCHANGELOGLASTUPDATETOUCHPOINT" path="PersonalData\LastUpdateTouchPointSourceSystem" />
+                <RelatedTable name="RDERIVEDCONSUMERCHANGELOGREGPERSONNEL" path="PersonalData\RegPersonnelSourceSystem" />
+                <RelatedTable name="RDERIVEDCONSUMERCHANGELOGPREFERREDTOUCHPOINT" path="PersonalData\PreferredTouchPointCodeSourceSystem" />
+                <RelatedTable name="RDERIVEDCONSUMERCHANGELOGLASTVISITTOUCHPOINT" path="PersonalData\LastVisitTouchPointCodeSourceSystem" />
+                <RelatedTable name="RDERIVEDCONSUMERCHANGELOGASSIGNEDPERSONNEL" path="PersonalData\AssignedPersonnelSourceSystem" />
+            </RelatedTables>
+        </Table>
+
+        <!--<Table name="BSOURCEDERIVEDCONSUMER" reference-table="true">
+            <Columns>
+                <Column name="DCSM_ID" auto-generation="true" primary-key="true" />
+                <Column name="DCSM_DRCN_ID" query-condition="true" reference-from="BDERIVEDCONSUMER\DRCN_ID" />
+                <Column path="Code" name="DCSM_SourceSystemCode" />
+                <Column path="SourceTimestamp" name="DCSM_SourceTimestamp" data-type="datetime" />
+                <Column path="MarketCode" name="DCSM_MarketCode" />
+                <Column path="AffiliateCode" name="DCSM_AffiliateCode" />
+                <Column path="DivisionCode" name="DCSM_DivisionCode" />
+                <Column path="BrandCode" name="DCSM_BrandCode" />
+                <Column path="ConsumerId" name="DCSM_ConsumerId" />
+                <Column path="TerminalId" name="DCSM_TerminalId" />
+            </Columns>
+        </Table>-->
+
+        <Table name="BNOTE" reference-table="true">
+            <Columns>
+                <Column name="DCNT_ID" auto-generation="true" primary-key="true" />
+                <Column name="DCNT_DRCN_ID" query-condition="true" reference-from="BDERIVEDCONSUMER\DRCN_ID" />
+                <Column name="DCNT_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="SeqNum" name="DCNT_SeqNum" />
+                <Column path="Type" name="DCNT_Type" />
+                <Column path="Location" name="DCNT_Location" />
+                <Column path="Note" name="DCNT_Note" />
+                <Column path="CreateDate" name="DCNT_CreateDate" data-type="date" />
+                <Column path="CreateBy" name="DCNT_CreateBy" data-type="date" />
+                <Column path="UpdateDate" name="DCNT_UpdateDate" />
+                <Column path="UpdateBy" name="DCNT_UpdateBy" />
+            </Columns>
+        </Table>
+
+        <Table name="BNOTECHANGELOG" reference-table="true" operation-mode="APPEND">
+            <Columns>
+                <Column name="NTCL_ID" auto-generation="true" primary-key="true" />
+                <Column name="NTCL_DCCL_ID" query-condition="true" reference-from="BDERIVEDCONSUMERCHANGELOG\DCCL_ID" />
+                <Column name="NTCL_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="SeqNum" name="NTCL_SeqNum" />
+                <Column path="Type" name="NTCL_Type" />
+                <Column path="Location" name="NTCL_Location" />
+                <Column path="Note" name="NTCL_Note" />
+                <Column path="CreateDate" name="NTCL_CreateDate" data-type="date" />
+                <Column path="CreateBy" name="NTCL_CreateBy" />
+                <Column path="UpdateDate" name="NTCL_UpdateDate" data-type="date" />
+                <Column path="UpdateBy" name="NTCL_UpdateBy" />
+            </Columns>
+        </Table>
+
+        <Table name="BCUSTOMGROUP" reference-table="true">
+            <Columns>
+                <Column name="DCCG_ID" auto-generation="true" primary-key="true" />
+                <Column name="DCCG_DRCN_ID" query-condition="true" reference-from="BDERIVEDCONSUMER\DRCN_ID" />
+                <Column name="DCCG_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="." name="DCCG_CustomerGroup" />
+            </Columns>
+        </Table>
+
+        <Table name="BCUSTOMGROUPCHANGELOG" reference-table="true" operation-mode="APPEND">
+            <Columns>
+                <Column name="CGCL_ID" auto-generation="true" primary-key="true" />
+                <Column name="CGCL_DCCL_ID" query-condition="true" reference-from="BDERIVEDCONSUMERCHANGELOG\DCCL_ID" />
+                <Column name="CGCL_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="." name="CGCL_CustomerGroup" />
+            </Columns>
+        </Table>
+
+        <Table name="BCUSTOMATTR" reference-table="true">
+            <Columns>
+                <Column name="CCAR_ID" auto-generation="true" primary-key="true" />
+                <Column name="CCAR_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="@Name" name="CCAR_CustomName" />
+                <Column path="@Value" name="CCAR_CustomValue" />
+            </Columns>
+        </Table>
+
+        <Table name="BPROGRAM" reference-table="true">
+            <Columns>
+                <Column name="CSPG_ID" auto-generation="true" primary-key="true" />
+                <Column name="CSPG_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="ApplicationTouchPointCode" name="CSPG_ApplicationTouchPointCode" />
+                <Column path="ConsumerGroup" name="CSPG_ConsumerGroup" />
+                <Column path="ProgramTypeCode" name="CSPG_ProgramTypeCode" />
+                <Column path="ProgramTypeDescription" name="CSPG_ProgramTypeDescription" />
+                <Column path="ProgramLevelCode" name="CSPG_ProgramLevelCode" />
+                <Column path="ProgramLevelDescription" name="CSPG_ProgramLevelDescription" />
+                <Column path="ProgramSystemIDCode" name="CSPG_ProgramSystemIDCode" />
+                <Column path="ProgramSystemIDDescription" name="CSPG_ProgramSystemIDDescription" />
+                <Column path="MembershipNum" name="CSPG_MembershipNum" />
+                <Column path="CardNum" name="CSPG_CardNum" />
+                <Column path="StartTimestamp" name="CSPG_StartTimestamp" data-type="datetime" />
+                <Column path="EndTimestamp" name="CSPG_EndTimestamp" data-type="datetime" />
+                <Column path="PointsAcquired" name="CSPG_PointsAcquired" data-type="int" />
+                <Column path="PointsRedeemed" name="CSPG_PointsRedeemed" data-type="int" />
+                <Column path="InitialQuota" name="CSPG_InitialQuota" data-type="int" />
+                <Column path="AvailableQuota" name="CSPG_AvailableQuota" data-type="int" />
+            </Columns>
+        </Table>
+
+        <Table name="BCONTACTADDRESS" reference-table="true">
+            <Columns>
+                <Column name="DCAD_ID" auto-generation="true" primary-key="true" />
+                <Column name="DCAD_DRCN_ID" query-condition="true" reference-from="BDERIVEDCONSUMER\DRCN_ID" />
+                <Column name="DCAD_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="@TypeCode" name="DCAD_TypeCode" />
+                <Column path="SourceTimestamp" name="DCAD_SourceTimestamp" data-type="datetime" />
+                <Column path="Address1" name="DCAD_Address1" />
+                <Column path="Address2" name="DCAD_Address2" />
+                <Column path="Address3" name="DCAD_Address3" />
+                <Column path="Address4" name="DCAD_Address4" />
+                <Column path="Address5" name="DCAD_Address5" />
+                <Column path="FlatNo" name="DCAD_FlatNo" />
+                <Column path="Floor" name="DCAD_Floor" />
+                <Column path="Block" name="DCAD_Block" />
+                <Column path="Phase" name="DCAD_Phase" />
+                <Column path="Building" name="DCAD_Building" />
+                <Column path="StreetNo" name="DCAD_StreetNo" />
+                <Column path="StreetNoSuffix" name="DCAD_StreetNoSuffix" />
+                <Column path="Alley" name="DCAD_Alley" />
+                <Column path="StreetName" name="DCAD_StreetName" />
+                <Column path="StreetName2" name="DCAD_StreetName2" />
+                <Column path="Estate" name="DCAD_Estate" />
+                <Column path="LaneNo" name="DCAD_LaneNo" />
+                <Column path="LaneName" name="DCAD_LaneName" />
+                <Column path="Sector" name="DCAD_Sector" />
+                <Column path="POBox" name="DCAD_POBox" />
+                <Column path="PostalCode" name="DCAD_PostalCode" />
+                <Column path="SubCityCode" name="DCAD_SubCityCode" />
+                <Column path="SubCityDescription_en" name="DCAD_SubCityDescription_en" />
+                <Column path="SubCityDescription_local" name="DCAD_SubCityDescription_local" />
+                <Column path="CityCode" name="DCAD_CityCode" />
+                <Column path="CityDescription_en" name="DCAD_CityDescription_en" />
+                <Column path="CityDescription_local" name="DCAD_CityDescription_local" />
+                <Column path="Province" name="DCAD_Province" />
+                <Column path="ProvinceCode" name="DCAD_ProvinceCode" />
+                <Column path="ProvinceDescription_en" name="DCAD_ProvinceDescription_en" />
+                <Column path="ProvinceDescription_local" name="DCAD_ProvinceDescription_local" />
+                <Column path="AdminArea" name="DCAD_AdminArea" />
+                <Column path="CountryCode_ISO3" name="DCAD_CountryCode_ISO3" />
+                <Column path="NUTSCode" name="DCAD_NUTSCode" />
+                <Column path="Longitude" name="DCAD_Longitude" />
+                <Column path="Latitude" name="DCAD_Latitude" />
+                <Column path="GeocodeResolution" name="DCAD_GeocodeResolution" />
+                <Column path="GeographicalSpokenLanguage" name="DCAD_GeographicalSpokenLanguage" />
+                <Column path="DataQualityCode" name="DCAD_DataQualityCode" />
+                <Column path="DataQualityDescription" name="DCAD_DataQualityDescription" />
+            </Columns>
+        </Table>
+
+        <Table name="BCONTACTADDRESSCHANGELOG" reference-table="true" operation-mode="APPEND">
+            <Columns>
+                <Column name="CACL_ID" auto-generation="true" primary-key="true" />
+                <Column name="CACL_DCCL_ID" query-condition="true" reference-from="BDERIVEDCONSUMERCHANGELOG\DCCL_ID" />
+                <Column name="CACL_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="@TypeCode" name="CACL_TypeCode" />
+                <Column path="SourceTimestamp" name="CACL_SourceTimestamp" data-type="datetime" />
+                <Column path="Address1" name="CACL_Address1" />
+                <Column path="Address2" name="CACL_Address2" />
+                <Column path="Address3" name="CACL_Address3" />
+                <Column path="Address4" name="CACL_Address4" />
+                <Column path="Address5" name="CACL_Address5" />
+                <Column path="FlatNo" name="CACL_FlatNo" />
+                <Column path="Floor" name="CACL_Floor" />
+                <Column path="Block" name="CACL_Block" />
+                <Column path="Phase" name="CACL_Phase" />
+                <Column path="Building" name="CACL_Building" />
+                <Column path="StreetNo" name="CACL_StreetNo" />
+                <Column path="StreetNoSuffix" name="CACL_StreetNoSuffix" />
+                <Column path="Alley" name="CACL_Alley" />
+                <Column path="StreetName" name="CACL_StreetName" />
+                <Column path="StreetName2" name="CACL_StreetName2" />
+                <Column path="Estate" name="CACL_Estate" />
+                <Column path="LaneNo" name="CACL_LaneNo" />
+                <Column path="LaneName" name="CACL_LaneName" />
+                <Column path="Sector" name="CACL_Sector" />
+                <Column path="POBox" name="CACL_POBox" />
+                <Column path="PostalCode" name="CACL_PostalCode" />
+                <Column path="SubCityCode" name="CACL_SubCityCode" />
+                <Column path="SubCityDescription_en" name="CACL_SubCityDescription_en" />
+                <Column path="SubCityDescription_local" name="CACL_SubCityDescription_local" />
+                <Column path="CityCode" name="CACL_CityCode" />
+                <Column path="CityDescription_en" name="CACL_CityDescription_en" />
+                <Column path="CityDescription_local" name="CACL_CityDescription_local" />
+                <Column path="Province" name="CACL_Province" />
+                <Column path="ProvinceCode" name="CACL_ProvinceCode" />
+                <Column path="ProvinceDescription_en" name="CACL_ProvinceDescription_en" />
+                <Column path="ProvinceDescription_local" name="CACL_ProvinceDescription_local" />
+                <Column path="AdminArea" name="CACL_AdminArea" />
+                <Column path="CountryCode_ISO3" name="CACL_CountryCode_ISO3" />
+                <Column path="NUTSCode" name="CACL_NUTSCode" />
+                <Column path="Longitude" name="CACL_Longitude" />
+                <Column path="Latitude" name="CACL_Latitude" />
+                <Column path="GeocodeResolution" name="CACL_GeocodeResolution" />
+                <Column path="GeographicalSpokenLanguage" name="CACL_GeographicalSpokenLanguage" />
+                <Column path="DataQualityCode" name="CACL_DataQualityCode" />
+                <Column path="DataQualityDescription" name="CACL_DataQualityDescription" />
+            </Columns>
+        </Table>
+
+        <Table name="BCONTACTEMEDIA" reference-table="true">
+            <Columns>
+                <Column name="DCEM_ID" auto-generation="true" primary-key="true" />
+                <Column name="DCEM_DRCN_ID" query-condition="true" reference-from="BDERIVEDCONSUMER\DRCN_ID" />
+                <Column name="DCEM_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="@TypeCode" name="DCEM_TypeCode" />
+                <Column path="SourceTimestamp" name="DCEM_SourceTimestamp" data-type="datetime" />
+                <Column path="Address" name="DCEM_Address" />
+                <Column path="DataQualityCode" name="DCEM_DataQualityCode" />
+                <Column path="DataQualityDescription" name="DCEM_DataQualityDescription" />
+            </Columns>
+        </Table>
+
+        <Table name="BCONTACTEMEDIACHANGELOG" reference-table="true" operation-mode="APPEND">
+            <Columns>
+                <Column name="CECL_ID" auto-generation="true" primary-key="true" />
+                <Column name="CECL_DCCL_ID" query-condition="true" reference-from="BDERIVEDCONSUMERCHANGELOG\DCCL_ID" />
+                <Column name="CECL_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="@TypeCode" name="CECL_TypeCode" />
+                <Column path="SourceTimestamp" name="CECL_SourceTimestamp" data-type="datetime" />
+                <Column path="Address" name="CECL_Address" />
+                <Column path="DataQualityCode" name="CECL_DataQualityCode" />
+                <Column path="DataQualityDescription" name="CECL_DataQualityDescription" />
+            </Columns>
+        </Table>
+
+        <Table name="BCONTACTPHONE" reference-table="true">
+            <Columns>
+                <Column name="DCPH_ID" auto-generation="true" primary-key="true" />
+                <Column name="DCPH_DRCN_ID" query-condition="true" reference-from="BDERIVEDCONSUMER\DRCN_ID" />
+                <Column name="DCPH_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="@TypeCode" name="DCPH_TypeCode" />
+                <Column path="SourceTimestamp" name="DCPH_SourceTimestamp" data-type="datetime" />
+                <Column path="CountryCode_ISO3" name="DCPH_CountryCode_ISO3" />
+                <Column path="PhoneCountryCode" name="DCPH_PhoneCountryCode" />
+                <Column path="RegionalCode" name="DCPH_RegionalCode" />
+                <Column path="Extension" name="DCPH_Extension" />
+                <Column path="PhoneNumber" name="DCPH_PhoneNumber" />
+                <Column path="RegPhoneTypeCode" name="DCPH_RegPhoneTypeCode" />
+                <Column path="Registrar" name="DCPH_Registrar" />
+                <Column path="DataQualityCode" name="DCPH_DataQualityCode" />
+                <Column path="DataQualityDescription" name="DCPH_DataQualityDescription" />
+            </Columns>
+        </Table>
+
+        <Table name="BCONTACTPHONECHANGELOG" reference-table="true" operation-mode="APPEND">
+            <Columns>
+                <Column name="CPCL_ID" auto-generation="true" primary-key="true" />
+                <Column name="CPCL_DCCL_ID" query-condition="true" reference-from="BDERIVEDCONSUMERCHANGELOG\DCCL_ID" />
+                <Column name="CPCL_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="@TypeCode" name="CPCL_TypeCode" />
+                <Column path="SourceTimestamp" name="CPCL_SourceTimestamp" data-type="datetime" />
+                <Column path="CountryCode_ISO3" name="CPCL_CountryCode_ISO3" />
+                <Column path="PhoneCountryCode" name="CPCL_PhoneCountryCode" />
+                <Column path="RegionalCode" name="CPCL_RegionalCode" />
+                <Column path="Extension" name="CPCL_Extension" />
+                <Column path="PhoneNumber" name="CPCL_PhoneNumber" />
+                <Column path="RegPhoneTypeCode" name="CPCL_RegPhoneTypeCode" />
+                <Column path="Registrar" name="CPCL_Registrar" />
+                <Column path="DataQualityCode" name="CPCL_DataQualityCode" />
+                <Column path="DataQualityDescription" name="CPCL_DataQualityDescription" />
+            </Columns>
+        </Table>
+
+        <Table name="BHAIRCONCERN" reference-table="true">
+            <Columns>
+                <Column name="DCHC_ID" auto-generation="true" primary-key="true" />
+                <Column name="DCHC_DRCN_ID" query-condition="true" reference-from="BDERIVEDCONSUMER\DRCN_ID" />
+                <Column name="DCHC_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="." name="DCHC_HairConcern" />
+            </Columns>
+        </Table>
+
+        <Table name="BHAIRCONCERNCHANGELOG" reference-table="true" operation-mode="APPEND">
+            <Columns>
+                <Column name="HCCL_ID" auto-generation="true" primary-key="true" />
+                <Column name="HCCL_DCCL_ID" query-condition="true" reference-from="BDERIVEDCONSUMERCHANGELOG\DCCL_ID" />
+                <Column name="HCCL_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="." name="HCCL_HairConcern" />
+            </Columns>
+        </Table>
+
+        <Table name="BHAIRTYPE" reference-table="true">
+            <Columns>
+                <Column name="DCHT_ID" auto-generation="true" primary-key="true" />
+                <Column name="DCHT_DRCN_ID" query-condition="true" reference-from="BDERIVEDCONSUMER\DRCN_ID" />
+                <Column name="DCHT_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="." name="DCHT_HairType" />
+            </Columns>
+        </Table>
+
+        <Table name="BHAIRTYPECHANGELOG" reference-table="true" operation-mode="APPEND">
+            <Columns>
+                <Column name="HTCL_ID" auto-generation="true" primary-key="true" />
+                <Column name="HTCL_DCCL_ID" query-condition="true" reference-from="BDERIVEDCONSUMERCHANGELOG\DCCL_ID" />
+                <Column name="HTCL_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="." name="HTCL_HairType" />
+            </Columns>
+        </Table>
+
+        <Table name="BHOBBY" reference-table="true">
+            <Columns>
+                <Column name="DCHB_ID" auto-generation="true" primary-key="true" />
+                <Column name="DCHB_DRCN_ID" query-condition="true" reference-from="BDERIVEDCONSUMER\DRCN_ID" />
+                <Column name="DCHB_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="HobbyDescription" name="DCHB_Hobby" />
+            </Columns>
+        </Table>
+
+        <Table name="BHOBBYCHANGELOG" reference-table="true" operation-mode="APPEND">
+            <Columns>
+                <Column name="HBCL_ID" auto-generation="true" primary-key="true" />
+                <Column name="HBCL_DCCL_ID" query-condition="true" reference-from="BDERIVEDCONSUMERCHANGELOG\DCCL_ID" />
+                <Column name="HBCL_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="HobbyDescription" name="HBCL_Hobby" />
+            </Columns>
+        </Table>
+
+        <Table name="BCROSSBRANDOPTIN" reference-table="true">
+            <Columns>
+                <Column name="DCCO_ID" auto-generation="true" primary-key="true" />
+                <Column name="DCCO_DRCN_ID" query-condition="true" reference-from="BDERIVEDCONSUMER\DRCN_ID" />
+                <Column name="DCCO_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="OptInTimestamp" name="DCCO_OptInTimestamp" data-type="datetime" />
+                <Column path="OptInFlag" name="DCCO_OptInFlag" data-type="boolean" />
+            </Columns>
+        </Table>
+
+        <Table name="BCROSSBRANDOPTINCHANGELOG" reference-table="true" operation-mode="APPEND">
+            <Columns>
+                <Column name="COCL_ID" auto-generation="true" primary-key="true" />
+                <Column name="COCL_DCCL_ID" query-condition="true" reference-from="BDERIVEDCONSUMERCHANGELOG\DCCL_ID" />
+                <Column name="COCL_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="OptInTimestamp" name="COCL_OptInTimestamp" data-type="datetime" />
+                <Column path="OptInFlag" name="COCL_OptInFlag" data-type="boolean" />
+            </Columns>
+        </Table>
+
+        <Table name="BDERIVEDCUSTOMATTR" reference-table="true">
+            <Columns>
+                <Column name="DCCA_ID" auto-generation="true" primary-key="true" />
+                <Column name="DCCA_DRCN_ID" query-condition="true" reference-from="BDERIVEDCONSUMER\DRCN_ID" />
+                <Column name="DCCA_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="@Name" name="DCCA_CustomName" />
+                <Column path="@Value" name="DCCA_CustomValue" />
+            </Columns>
+        </Table>
+
+        <Table name="BDERIVEDCUSTOMATTRCHANGELOG" reference-table="true" operation-mode="APPEND">
+            <Columns>
+                <Column name="DACL_ID" auto-generation="true" primary-key="true" />
+                <Column name="DACL_DCCL_ID" query-condition="true" reference-from="BDERIVEDCONSUMERCHANGELOG\DCCL_ID" />
+                <Column name="DACL_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="@Name" name="DACL_CustomName" />
+                <Column path="@Value" name="DACL_CustomValue" />
+            </Columns>
+        </Table>
+
+        <Table name="BOPTIN" reference-table="true">
+            <Columns>
+                <Column name="DCOI_ID" auto-generation="true" primary-key="true" />
+                <Column name="DCOI_DRCN_ID" query-condition="true" reference-from="BDERIVEDCONSUMER\DRCN_ID" />
+                <Column name="DCOI_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="OptInTimestamp" name="DCOI_OptInTimestamp" data-type="datetime" />
+                <Column path="CommunicationChannelCode" name="DCOI_CommunicationChannelCode" />
+                <Column path="OptInFlag" name="DCOI_OptInFlag" data-type="boolean" />
+                <Column path="OptInSourceSystemCode" name="DCOI_OptInSourceSystemCode" />
+            </Columns>
+        </Table>
+
+        <Table name="BOPTINCHANGELOG" reference-table="true" operation-mode="APPEND">
+            <Columns>
+                <Column name="OICL_ID" auto-generation="true" primary-key="true" />
+                <Column name="OICL_DCCL_ID" query-condition="true" reference-from="BDERIVEDCONSUMERCHANGELOG\DCCL_ID" />
+                <Column name="OICL_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="OptInTimestamp" name="OICL_OptInTimestamp" data-type="datetime" />
+                <Column path="CommunicationChannelCode" name="OICL_CommunicationChannelCode" />
+                <Column path="OptInFlag" name="OICL_OptInFlag" data-type="boolean" />
+                <Column path="OptInSourceSystemCode" name="OICL_OptInSourceSystemCode" />
+            </Columns>
+        </Table>
+
+        <Table name="BREMARK" reference-table="true">
+            <Columns>
+                <Column name="DCRM_ID" auto-generation="true" primary-key="true" />
+                <Column name="DCRM_DRCN_ID" query-condition="true" reference-from="BDERIVEDCONSUMER\DRCN_ID" />
+                <Column name="DCRM_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="RemarkCode" name="DCRM_RemarkCode" />
+                <Column path="RemarksDate" name="DCRM_RemarksDate" data-type="datetime" />
+                <Column path="Remarks" name="DCRM_Remarks" />
+            </Columns>
+        </Table>
+
+        <Table name="BREMARKCHANGELOG" reference-table="true" operation-mode="APPEND">
+            <Columns>
+                <Column name="RMCL_ID" auto-generation="true" primary-key="true" />
+                <Column name="RMCL_DCCL_ID" query-condition="true" reference-from="BDERIVEDCONSUMERCHANGELOG\DCCL_ID" />
+                <Column name="RMCL_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="RemarkCode" name="RMCL_RemarkCode" />
+                <Column path="RemarksDate" name="RMCL_RemarksDate" data-type="datetime" />
+                <Column path="Remarks" name="RMCL_Remarks" />
+            </Columns>
+        </Table>
+
+        <Table name="BTERMSANDCONDITION" reference-table="true">
+            <Columns>
+                <Column name="DCTC_ID" auto-generation="true" primary-key="true" />
+                <Column name="DCTC_DRCN_ID" query-condition="true" reference-from="BDERIVEDCONSUMER\DRCN_ID" />
+                <Column name="DCTC_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="Code" name="DCTC_Code" />
+                <Column path="Description" name="DCTC_Description" />
+                <Column path="Version" name="DCTC_Version" />
+                <Column path="AcceptedDate" name="DCTC_AcceptedDate" data-type="datetime" />
+            </Columns>
+        </Table>
+
+        <Table name="BTERMSANDCONDITIONCHANGELOG" reference-table="true" operation-mode="APPEND">
+            <Columns>
+                <Column name="TCCL_ID" auto-generation="true" primary-key="true" />
+                <Column name="TCCL_DCCL_ID" query-condition="true" reference-from="BDERIVEDCONSUMERCHANGELOG\DCCL_ID" />
+                <Column name="TCCL_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="Code" name="TCCL_Code" />
+                <Column path="Description" name="TCCL_Description" />
+                <Column path="Version" name="TCCL_Version" />
+                <Column path="AcceptedDate" name="TCCL_AcceptedDate" data-type="datetime" />
+            </Columns>
+        </Table>
+
+        <Table name="BSKINCONCERN" reference-table="true">
+            <Columns>
+                <Column name="CDSC_ID" auto-generation="true" primary-key="true" />
+                <Column name="CDSC_DRCN_ID" query-condition="true" reference-from="BDERIVEDCONSUMER\DRCN_ID" />
+                <Column name="CDSC_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <!--<Column path="SkinConcerns" name="CDSC_SkinConcern" />-->
+                <Column path="." name="CDSC_SkinConcern" />
+            </Columns>
+        </Table>
+
+        <Table name="BSKINCONCERNCHANGELOG" reference-table="true" operation-mode="APPEND">
+            <Columns>
+                <Column name="SCCL_ID" auto-generation="true" primary-key="true" />
+                <Column name="SCCL_DCCL_ID" query-condition="true" reference-from="BDERIVEDCONSUMERCHANGELOG\DCCL_ID" />
+                <Column name="SCCL_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="." name="SCCL_SkinConcern" />
+            </Columns>
+        </Table>
+
+        <Table name="BAUXILIARYATTR" reference-table="true">
+            <Columns>
+                <Column name="DCAA_ID" auto-generation="true" primary-key="true" />
+                <Column name="DCAA_DRCN_ID" query-condition="true" reference-from="BDERIVEDCONSUMER\DRCN_ID" />
+                <Column name="DCAA_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="@Code" name="DCAA_Code" />
+                <Column path="Description" name="DCAA_Description" />
+                <Column path="MultiValue" name="DCAA_MultiValue" data-type="boolean" />
+                <Column path="@Value" name="DCAA_Value" />
+                <Column path="Active" name="DCAA_Active" data-type="boolean" />
+            </Columns>
+        </Table>
+
+        <Table name="BAUXILIARYATTRCHANGELOG" reference-table="true" operation-mode="APPEND">
+            <Columns>
+                <Column name="AACL_ID" auto-generation="true" primary-key="true" />
+                <Column name="AACL_DCCL_ID" query-condition="true" reference-from="BDERIVEDCONSUMERCHANGELOG\DCCL_ID" />
+                <Column name="AACL_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="@Code" name="AACL_Code" />
+                <Column path="Description" name="AACL_Description" />
+                <Column path="MultiValue" name="AACL_MultiValue" data-type="boolean" />
+                <Column path="@Value" name="AACL_Value" />
+                <Column path="Active" name="AACL_Active" data-type="boolean" />
+            </Columns>
+        </Table>
+
+        <Table name="BMAKEUPCONCERN" reference-table="true">
+            <Columns>
+                <Column name="DCMC_ID" auto-generation="true" primary-key="true" />
+                <Column name="DCMC_DRCN_ID" query-condition="true" reference-from="BDERIVEDCONSUMER\DRCN_ID" />
+                <Column name="DCMC_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="." name="DCMC_MakeupConcern" />
+            </Columns>
+        </Table>
+
+        <Table name="BMAKEUPCONCERNCHANGELOG" reference-table="true" operation-mode="APPEND">
+            <Columns>
+                <Column name="MCCL_ID" auto-generation="true" primary-key="true" />
+                <Column name="MCCL_DCCL_ID" query-condition="true" reference-from="BDERIVEDCONSUMERCHANGELOG\DCCL_ID" />
+                <Column name="MCCL_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="." name="MCCL_MakeupConcern" />
+            </Columns>
+        </Table>
+
+        <Table name="BCALCBUSINESSVARIABLES" reference-table="true">
+            <Columns>
+                <Column name="CCBV_ID" auto-generation="true" primary-key="true" />
+                <Column name="CCBV_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="Segment\Code" name="CCBV_SegmentCode" />
+                <Column path="Segment\Description" name="CCBV_SegmentDescription" />
+                <Column path="Decile" name="CCBV_Decile" data-type="int" />
+                <Column path="ValueGroup\Code" name="CCBV_ValueGroupCode" />
+                <Column path="ValueGroup\Description" name="CCBV_ValueGroupDescription" />
+                <Column path="RecencySegment\Code" name="CCBV_RecencySegmentCode" />
+                <Column path="RecencySegment\Description" name="CCBV_RecencySegmentDescription" />
+                <Column path="RecencySegment\Active" name="CCBV_RecencySegmentActive" data-type="boolean" />
+                <Column path="PurchaseSummary\TotalPurchaseNumber" name="CCBV_TotalPurchaseNumber" data-type="int" />
+                <Column path="PurchaseSummary\R12MPurchaseNumber" name="CCBV_R12MPurchaseNumber" data-type="int" />
+                <Column path="PurchaseSummary\Currency\CurrencyCode" name="CCBV_CurrencyCode" />
+                <Column path="PurchaseSummary\GrossRevenueNoVAT" name="CCBV_GrossRevenueNoVAT" data-type="double" />
+                <Column path="PurchaseSummary\GrossRevenueVAT" name="CCBV_GrossRevenueVAT" data-type="double" />
+                <Column path="PurchaseSummary\NetRevenueNoVAT" name="CCBV_NetRevenueNoVAT" data-type="double" />
+                <Column path="PurchaseSummary\NetRevenueVAT" name="CCBV_NetRevenueVAT" data-type="double" />
+            </Columns>
+        </Table>
+
+        <Table name="BCALCBUSINESSVARIABLESCHANGELOG" reference-table="true" operation-mode="APPEND">
+            <Columns>
+                <Column name="BVCL_ID" auto-generation="true" primary-key="true" />
+                <Column name="BVCL_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="Segment\Code" name="BVCL_SegmentCode" />
+                <Column path="Segment\Description" name="BVCL_SegmentDescription" />
+                <Column path="Decile" name="BVCL_Decile" data-type="int" />
+                <Column path="ValueGroup\Code" name="BVCL_ValueGroupCode" />
+                <Column path="ValueGroup\Description" name="BVCL_ValueGroupDescription" />
+                <Column path="RecencySegment\Code" name="BVCL_RecencySegmentCode" />
+                <Column path="RecencySegment\Description" name="BVCL_RecencySegmentDescription" />
+                <Column path="RecencySegment\Active" name="BVCL_RecencySegmentActive" data-type="boolean" />
+                <Column path="PurchaseSummary\TotalPurchaseNumber" name="BVCL_TotalPurchaseNumber" data-type="int" />
+                <Column path="PurchaseSummary\R12MPurchaseNumber" name="BVCL_R12MPurchaseNumber" data-type="int" />
+                <Column path="PurchaseSummary\Currency\CurrencyCode" name="BVCL_CurrencyCode" />
+                <Column path="PurchaseSummary\GrossRevenueNoVAT" name="BVCL_GrossRevenueNoVAT" data-type="double" />
+                <Column path="PurchaseSummary\GrossRevenueVAT" name="BVCL_GrossRevenueVAT" data-type="double" />
+                <Column path="PurchaseSummary\NetRevenueNoVAT" name="BVCL_NetRevenueNoVAT" data-type="double" />
+                <Column path="PurchaseSummary\NetRevenueVAT" name="BVCL_NetRevenueVAT" data-type="double" />
+            </Columns>
+        </Table>
+
+        <Table name="BDERIVEDCALCBUSINESSVARS" reference-table="true">
+            <Columns>
+                <Column name="DCBS_ID" auto-generation="true" primary-key="true" />
+                <Column name="DCBS_DRCN_ID" query-condition="true" reference-from="BDERIVEDCONSUMER\DRCN_ID" />
+                <Column name="DCBS_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="Segment\Code" name="DCBS_SegmentCode" />
+                <Column path="Segment\Description" name="DCBS_SegmentDescription" />
+                <Column path="Decile" name="DCBS_Decile" data-type="int" />
+                <Column path="ValueGroup\Code" name="DCBS_ValueGroupCode" />
+                <Column path="ValueGroup\Description" name="DCBS_ValueGroupDescription" />
+                <Column path="RecencySegment\Code" name="DCBS_RecencySegmentCode" />
+                <Column path="RecencySegment\Description" name="DCBS_RecencySegmentDescription" />
+                <Column path="RecencySegment\Active" name="DCBS_RecencySegmentActive" data-type="boolean" />
+                <Column path="PurchaseSummary\TotalPurchaseNumber" name="DCBS_TotalPurchaseNumber" data-type="int" />
+                <Column path="PurchaseSummary\R12MPurchaseNumber" name="DCBS_R12MPurchaseNumber" data-type="int" />
+                <Column path="PurchaseSummary\Currency\CurrencyCode" name="DCBS_PurchaseCurrencyCode" />
+                <Column path="PurchaseSummary\GrossRevenueNoVAT" name="DCBS_GrossRevenueNoVAT" data-type="double" />
+                <Column path="PurchaseSummary\GrossRevenueVAT" name="DCBS_GrossRevenueVAT" data-type="double" />
+                <Column path="PurchaseSummary\NetRevenueNoVAT" name="DCBS_NetRevenueNoVAT" data-type="double" />
+                <Column path="PurchaseSummary\NetRevenueVAT" name="DCBS_NetRevenueVAT" data-type="double" />
+            </Columns>
+        </Table>
+
+        <Table name="BDERIVEDCALCBUSINESSVARSCHANGELOG" reference-table="true" operation-mode="APPEND">
+            <Columns>
+                <Column name="DVCL_ID" auto-generation="true" primary-key="true" />
+                <Column name="DVCL_DCCL_ID" query-condition="true" reference-from="BDERIVEDCONSUMERCHANGELOG\DCCL_ID" />
+                <Column name="DVCL_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column path="Segment\Code" name="DVCL_SegmentCode" />
+                <Column path="Segment\Description" name="DVCL_SegmentDescription" />
+                <Column path="Decile" name="DVCL_Decile" data-type="int" />
+                <Column path="ValueGroup\Code" name="DVCL_ValueGroupCode" />
+                <Column path="ValueGroup\Description" name="DVCL_ValueGroupDescription" />
+                <Column path="RecencySegment\Code" name="DVCL_RecencySegmentCode" />
+                <Column path="RecencySegment\Description" name="DVCL_RecencySegmentDescription" />
+                <Column path="RecencySegment\Active" name="DVCL_RecencySegmentActive" data-type="boolean" />
+                <Column path="PurchaseSummary\TotalPurchaseNumber" name="DVCL_TotalPurchaseNumber" data-type="int" />
+                <Column path="PurchaseSummary\R12MPurchaseNumber" name="DVCL_R12MPurchaseNumber" data-type="int" />
+                <Column path="PurchaseSummary\Currency\CurrencyCode" name="DVCL_PurchaseCurrencyCode" />
+                <Column path="PurchaseSummary\GrossRevenueNoVAT" name="DVCL_GrossRevenueNoVAT" data-type="double" />
+                <Column path="PurchaseSummary\GrossRevenueVAT" name="DVCL_GrossRevenueVAT" data-type="double" />
+                <Column path="PurchaseSummary\NetRevenueNoVAT" name="DVCL_NetRevenueNoVAT" data-type="double" />
+                <Column path="PurchaseSummary\NetRevenueVAT" name="DVCL_NetRevenueVAT" data-type="double" />
+            </Columns>
+        </Table>
+
+        <Table name="RCONSUMERREGTOUCHPOINT" reference-table="true" pre-operate="BCONSUMER\CNSM_RegTouchPointForeignKey">
+            <Columns>
+                <Column name="CRTP_CNSM_ID" reference-from="BCONSUMER\CNSM_ID" />
+                <Column name="CRTP_RegTouchPointCode" path="TouchPointCode" />
+            </Columns>
+        </Table>
+
+        <Table name="RCONSUMERLASTUPDATETOUCHPOINT" reference-table="true" pre-operate="BCONSUMER\CNSM_LastUpdateTouchPointForeignKey">
+
+            <Columns>
+                <Column name="CLTP_CNSM_ID" reference-from="BCONSUMER\CNSM_ID" />
+                <Column name="CLTP_LastUpdateTouchPointCode" path="TouchPointCode" />
+            </Columns>
+        </Table>
+
+        <Table name="RCONSUMERREGPERSONNEL" reference-table="true" pre-operate="BCONSUMER\CNSM_RegPersonnelForeignKey">
+            <Columns>
+                <Column name="CRPN_CNSM_ID" reference-from="BCONSUMER\CNSM_ID" />
+                <Column name="CRPN_RegPersonnelCode" path="PersonnelCode" />
+            </Columns>
+        </Table>
+
+        <Table name="RDERIVEDCONSUMERTOUCHPOINT" reference-table="true" pre-operate="BDERIVEDCONSUMER\DRCN_TouchPointForeignKey">
+            <Columns>
+                <Column name="DCTP_DRCN_ID" reference-from="BDERIVEDCONSUMER\DRCN_ID" />
+                <Column name="DCTP_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column name="DCTP_TouchPointCode" path="TouchPointCode" />
+            </Columns>
+        </Table>
+
+        <Table name="RDERIVEDCONSUMERREGTOUCHPOINT" reference-table="true" pre-operate="BDERIVEDCONSUMER\DRCN_RegTouchPointForeignKey">
+            <Columns>
+                <Column name="DRTP_DRCN_ID" reference-from="BDERIVEDCONSUMER\DRCN_ID" />
+                <Column name="DRTP_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column name="DRTP_TouchPointCode" path="TouchPointCode" />
+                <Column name="DRTP_RegTouchPointMarketCode" path="MarketCode" />
+                <Column name="DRTP_RegTouchPointBrandCode" path="BrandCode" />
+            </Columns>
+        </Table>
+
+        <Table name="RDERIVEDCONSUMERLASTUPDATETOUCHPOINT" reference-table="true" pre-operate="BDERIVEDCONSUMER\DRCN_LastUpdateTouchPointForeignKey">
+            <Columns>
+                <Column name="DLTP_DRCN_ID" reference-from="BDERIVEDCONSUMER\DRCN_ID" />
+                <Column name="DLTP_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column name="DLTP_TouchPointCode" path="TouchPointCode" />
+                <Column name="DLTP_LastUpdateTouchPointMarketCode" path="MarketCode" />
+                <Column name="DLTP_LastUpdateTouchPointBrandCode" path="BrandCode" />
+            </Columns>
+        </Table>
+
+        <Table name="RDERIVEDCONSUMERREGPERSONNEL" reference-table="true" pre-operate="BDERIVEDCONSUMER\DRCN_RegPersonnelForeignKey">
+            <Columns>
+                <Column name="DRPN_DRCN_ID" reference-from="BDERIVEDCONSUMER\DRCN_ID" />
+                <Column name="DRPN_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column name="DRPN_PersonnelCode" path="PersonnelCode" />
+                <Column name="DRPN_RegPersonnelMarketCode" path="MarketCode" />
+                <Column name="DRPN_RegPersonnelBrandCode" path="BrandCode"/>
+            </Columns>
+        </Table>
+
+        <Table name="RDERIVEDCONSUMERPREFERREDTOUCHPOINT" reference-table="true" pre-operate="BDERIVEDCONSUMER\DRCN_PreferredTouchPointForeignKey">
+            <Columns>
+                <Column name="DPTP_DRCN_ID" reference-from="BDERIVEDCONSUMER\DRCN_ID" />
+                <Column name="DPTP_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column name="DPTP_TouchPointCode" path="TouchPointCode" />
+                <Column name="DPTP_PreferredTouchPointMarketCode" path="MarketCode" />
+                <Column name="DPTP_PreferredTouchPointBrandCode" path="BrandCode" />
+            </Columns>
+        </Table>
+
+        <Table name="RDERIVEDCONSUMERLASTVISITTOUCHPOINT" reference-table="true" pre-operate="BDERIVEDCONSUMER\DRCN_LastVisitTouchPointForeignKey">
+            <Columns>
+                <Column name="DVTP_DRCN_ID" reference-from="BDERIVEDCONSUMER\DRCN_ID" />
+                <Column name="DVTP_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column name="DVTP_TouchPointCode" path="TouchPointCode" />
+                <Column name="DVTP_LastVisitTouchPointMarketCode" path="MarketCode" />
+                <Column name="DVTP_LastVisitTouchPointBrandCode" path="BrandCode" />
+            </Columns>
+        </Table>
+
+        <Table name="RDERIVEDCONSUMERASSIGNEDPERSONNEL" reference-table="true" pre-operate="BDERIVEDCONSUMER\DRCN_AssignedPersonnelForeignKey">
+            <Columns>
+                <Column name="DAPN_DRCN_ID" reference-from="BDERIVEDCONSUMER\DRCN_ID" />
+                <Column name="DAPN_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column name="DAPN_PersonnelCode" path="PersonnelCode" />
+                <Column name="DAPN_AssignedPersonnelMarketCode" path="MarketCode" />
+                <Column name="DAPN_AssignedPersonnelBrandCode" path="BrandCode" />
+            </Columns>
+        </Table>
+
+        <Table name="RDERIVEDCONSUMERCHANGELOGTOUCHPOINT" reference-table="true" pre-operate="BDERIVEDCONSUMERCHANGELOG\DCCL_TouchPointForeignKey">
+            <Columns>
+                <Column name="DCLT_DCCL_ID" reference-from="BDERIVEDCONSUMERCHANGELOG\DCCL_ID" />
+                <Column name="DCLT_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column name="DCLT_TouchPointCode" path="TouchPointCode" />
+            </Columns>
+        </Table>
+
+        <Table name="RDERIVEDCONSUMERCHANGELOGREGTOUCHPOINT" reference-table="true" pre-operate="BDERIVEDCONSUMERCHANGELOG\DCCL_RegTouchPointForeignKey">
+            <Columns>
+                <Column name="CLRT_DCCL_ID" reference-from="BDERIVEDCONSUMERCHANGELOG\DCCL_ID" />
+                <Column name="CLRT_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column name="CLRT_TouchPointCode" path="TouchPointCode" />
+                <Column name="CLRT_RegTouchPointMarketCode" path="MarketCode" />
+                <Column name="CLRT_RegTouchPointBrandCode" path="BrandCode" />
+            </Columns>
+        </Table>
+
+        <Table name="RDERIVEDCONSUMERCHANGELOGLASTUPDATETOUCHPOINT" reference-table="true" pre-operate="BDERIVEDCONSUMERCHANGELOG\DCCL_LastUpdateTouchPointForeignKey">
+            <Columns>
+                <Column name="CLLT_DCCL_ID" reference-from="BDERIVEDCONSUMERCHANGELOG\DCCL_ID" />
+                <Column name="CLLT_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column name="CLLT_TouchPointCode" path="TouchPointCode" />
+                <Column name="CLLT_LastUpdateTouchPointMarketCode" path="MarketCode" />
+                <Column name="CLLT_LastUpdateTouchPointBrandCode" path="BrandCode" />
+            </Columns>
+        </Table>
+
+        <Table name="RDERIVEDCONSUMERCHANGELOGREGPERSONNEL" reference-table="true" pre-operate="BDERIVEDCONSUMERCHANGELOG\DCCL_RegPersonnelForeignKey">
+            <Columns>
+                <Column name="CLRP_DCCL_ID" reference-from="BDERIVEDCONSUMERCHANGELOG\DCCL_ID" />
+                <Column name="CLRP_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column name="CLRP_PersonnelCode" path="PersonnelCode" />
+                <Column name="CLRP_RegPersonnelMarketCode" path="MarketCode" />
+                <Column name="CLRP_RegPersonnelBrandCode" path="BrandCode"/>
+            </Columns>
+        </Table>
+
+        <Table name="RDERIVEDCONSUMERCHANGELOGPREFERREDTOUCHPOINT" reference-table="true" pre-operate="BDERIVEDCONSUMERCHANGELOG\DCCL_PreferredTouchPointForeignKey">
+            <Columns>
+                <Column name="CLPT_DCCL_ID" reference-from="BDERIVEDCONSUMERCHANGELOG\DCCL_ID" />
+                <Column name="CLPT_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column name="CLPT_TouchPointCode" path="TouchPointCode" />
+                <Column name="CLPT_PreferredTouchPointMarketCode" path="MarketCode" />
+                <Column name="CLPT_PreferredTouchPointBrandCode" path="BrandCode" />
+            </Columns>
+        </Table>
+
+        <Table name="RDERIVEDCONSUMERCHANGELOGLASTVISITTOUCHPOINT" reference-table="true" pre-operate="BDERIVEDCONSUMERCHANGELOG\DCCL_LastVisitTouchPointForeignKey">
+            <Columns>
+                <Column name="CLVT_DCCL_ID" reference-from="BDERIVEDCONSUMERCHANGELOG\DCCL_ID" />
+                <Column name="CLVT_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column name="CLVT_TouchPointCode" path="TouchPointCode" />
+                <Column name="CLVT_LastVisitTouchPointMarketCode" path="MarketCode" />
+                <Column name="CLVT_LastVisitTouchPointBrandCode" path="BrandCode" />
+            </Columns>
+        </Table>
+
+        <Table name="RDERIVEDCONSUMERCHANGELOGASSIGNEDPERSONNEL" reference-table="true" pre-operate="BDERIVEDCONSUMERCHANGELOG\DCCL_AssignedPersonnelForeignKey">
+            <Columns>
+                <Column name="CLAP_DCCL_ID" reference-from="BDERIVEDCONSUMERCHANGELOG\DCCL_ID" />
+                <Column name="CLAP_CNSM_ID" query-condition="true" reference-from="BCONSUMER\CNSM_ID" />
+                <Column name="CLAP_PersonnelCode" path="PersonnelCode" />
+                <Column name="CLAP_AssignedPersonnelMarketCode" path="MarketCode" />
+                <Column name="CLAP_AssignedPersonnelBrandCode" path="BrandCode" />
+            </Columns>
+        </Table>
+    </Tables>
+</OperationConfig>
