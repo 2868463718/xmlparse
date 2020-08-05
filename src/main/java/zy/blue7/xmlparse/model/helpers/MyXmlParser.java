@@ -17,6 +17,9 @@ import java.util.Set;
 @Component
 public class MyXmlParser implements IXmlParser {
     private static String strTables="/OperationConfig/Tables";
+    private static String strAction="/OperationConfig/Action";
+    private static String strExistenceCheck="/OperationConfig/ExistenceCheck";
+    private static String strArrivalLog="/OperationConfig/ArrivalLog";
     private static String strTable="/OperationConfig/Tables/Table";
 
     @Override
@@ -28,14 +31,49 @@ public class MyXmlParser implements IXmlParser {
     @Override
     public String parse(Document document) throws Exception {
         StringBuilder keyValue=new StringBuilder();
-        Set<String> strSet=this.parse(document,"BCONSUMER","");
+        Set<String> strSet=new HashSet<>();
+//        -----------获取Action节点对应的path属性------------------
+        Element actionEl= (Element) document.selectSingleNode(strAction);
+        String strActionPath=actionEl.attributeValue("path");
+
+        strSet.add(strActionPath.replace("\\",".").replace("@","")+"="+strActionPath.replace("\\","/"));
+
+//        ----------------获取ExistenceCheck节点对应的path属性
+
+        List<Node> queryConditionNodes = document.selectNodes(strExistenceCheck + "/" + "QueryConditions/QueryCondition");
+        if(queryConditionNodes.size()>0&&!queryConditionNodes.isEmpty()){
+            for(Node queryConditionNode:queryConditionNodes){
+                Element queryConditionEl= (Element) queryConditionNode;
+                String queryConditionPath=queryConditionEl.attributeValue("path");
+
+                strSet.add(queryConditionPath.replace("\\",".").replace("@","")+"="+queryConditionPath.replace("\\","/"));
+            }
+
+        }
+
+
+
+//        ----------------获取ArrivalLog节点对应的path属性
+        List<Node> arrivalLogChildNodes = document.selectNodes(strArrivalLog + "/*[@path]");
+        if(arrivalLogChildNodes.size()>0&&!arrivalLogChildNodes.isEmpty()){
+            for(Node logNode:arrivalLogChildNodes){
+                Element logEl = (Element) logNode;
+                String logPath=logEl.attributeValue("path");
+
+                strSet.add(logPath.replace("\\",".").replace("@","")+"="+logPath.replace("\\","/"));
+            }
+        }
+
+
+//        ----------------获取Tables节点对应的path属性
+        strSet.addAll(this.parseTable(document,"BCONSUMER",""));
         for(String str:strSet){
             keyValue.append(str+"\r\n");
         }
         return keyValue.toString();
     }
     @Override
-    public Set<String> parse(Document document, String tableName, String parentPath) throws Exception {
+    public Set<String> parseTable(Document document, String tableName, String parentPath) throws Exception {
 //        利用set去重
         Set<String> keyValueSet=new HashSet<>();
 
@@ -49,16 +87,14 @@ public class MyXmlParser implements IXmlParser {
         if(columnPathNodes.size()>0&&!columnPathNodes.isEmpty()){
             for(Node columnPathNode:columnPathNodes){
                 String path = ((Element) columnPathNode).attributeValue("path");
- //                替换@字符，避免Java命名不规范
-                if(path.startsWith("@")){
-                   path=path.replace("@","");
-                }
+
+
 //                拼接父路径，因为关联表的path是不完整的，必须添加他的引用表的RelatedTable节点的path属性
                 if(!parentPath.isEmpty()&&!parentPath.equalsIgnoreCase("")){
                     path=parentPath+"\\"+path;
                 }
-                keyValueSet.add(path.replace("\\",".")+"="+path.replace("\\","/"));
-//                keyValue.append(path.replace("\\",".")+"="+path.replace("\\","/")+"\r\n");
+ //                替换@字符，避免Java命名不规范,只有key替换
+                keyValueSet.add(path.replace("\\",".").replace("@","")+"="+path.replace("\\","/"));
 //            System.out.println(path.getValue());
             }
         }
@@ -70,14 +106,13 @@ public class MyXmlParser implements IXmlParser {
                 if(!columnQueryConditions.isEmpty()&&columnQueryConditions.size()>0){
                     for(Node node:columnQueryConditions){
                         String path=((Element)node).attributeValue("path");
- //                替换@字符，避免Java命名不规范
-                        if(path.startsWith("@")){
-                            path=path.replace("@","");
-                        }
+
+
                         if(!parentPath.isEmpty()&&!parentPath.equalsIgnoreCase("")){
                             path=parentPath+"\\"+path;
                         }
-                        keyValueSet.add(path.replace("\\",".")+"="+path.replace("\\","/"));
+//                替换@字符，避免Java命名不规范，只有key值替换
+                        keyValueSet.add(path.replace("\\",".").replace("@","")+"="+path.replace("\\","/"));
 //                        keyValue.append(path.replace("\\",".")+"="+path.replace("\\","/")+"\r\n");
                     }
                 }
@@ -117,6 +152,6 @@ public class MyXmlParser implements IXmlParser {
         //查找指定的关联表节点
 //        Element relatedTable = (Element) document.selectSingleNode(strTable + "[@name='" + relatedTableName + "']");
 //到这里关联表还是一张表，跟主表类似的操作
-        return this.parse(document,relatedTableName,relatedTableParentPath);
+        return this.parseTable(document,relatedTableName,relatedTableParentPath);
     }
 }

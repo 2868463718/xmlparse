@@ -11,6 +11,6 @@ import java.util.Set;
 public interface IXmlParser {
     String parse(String xmlFilePath) throws Exception;
     String parse(Document document) throws Exception;
-    Set<String> parse(Document document, String tableName, String parentPath) throws Exception;
+    Set<String> parseTable(Document document, String tableName, String parentPath) throws Exception;
 
 }
