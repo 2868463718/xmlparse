@@ -4,6 +4,7 @@ import org.dom4j.*;
 import org.dom4j.io.SAXReader;
 import org.springframework.stereotype.Component;
 import zy.blue7.xmlparse.model.interfaces.IXmlParser;
+import zy.blue7.xmlparse.model.utils.StringUtils;
 
 import java.io.File;
 import java.util.HashSet;
@@ -36,8 +37,8 @@ public class MyXmlParser implements IXmlParser {
 //        -----------获取Action节点对应的path属性------------------
         Element actionEl= (Element) document.selectSingleNode(strAction);
         String strActionPath=actionEl.attributeValue("path");
-
-        strSet.add(strActionPath.replace("\\",".").replace("@","")+"="+strActionPath.replace("\\","/"));
+        String toLowerActionPath=this.toLowerStrWordFirst(strActionPath.replace("\\",".").replace("@",""));
+        strSet.add(toLowerActionPath+"="+strActionPath.replace("\\","/"));
 
 //        ----------------获取ExistenceCheck节点对应的path属性
 
@@ -46,8 +47,9 @@ public class MyXmlParser implements IXmlParser {
             for(Node queryConditionNode:queryConditionNodes){
                 Element queryConditionEl= (Element) queryConditionNode;
                 String queryConditionPath=queryConditionEl.attributeValue("path");
-
-                strSet.add(queryConditionPath.replace("\\",".").replace("@","")+"="+queryConditionPath.replace("\\","/"));
+                //小写首字母 ConsumerBestRecord.BestRecord.ProgramList.Program.PointsAcquired----》consumerBestRecord.cestRecord.crogramList.crogram.cointsAcquired
+                String toLowerQueryConditionPath=this.toLowerStrWordFirst(queryConditionPath.replace("\\",".").replace("@",""));
+                strSet.add(toLowerQueryConditionPath+"="+queryConditionPath.replace("\\","/"));
             }
 
         }
@@ -60,8 +62,8 @@ public class MyXmlParser implements IXmlParser {
             for(Node logNode:arrivalLogChildNodes){
                 Element logEl = (Element) logNode;
                 String logPath=logEl.attributeValue("path");
-
-                strSet.add(logPath.replace("\\",".").replace("@","")+"="+logPath.replace("\\","/"));
+                String toLowerLogPath=this.toLowerStrWordFirst(logPath.replace("\\",".").replace("@",""));
+                strSet.add(toLowerLogPath+"="+logPath.replace("\\","/"));
             }
         }
 
@@ -73,6 +75,22 @@ public class MyXmlParser implements IXmlParser {
         }
         return keyValue.toString();
     }
+
+    private String toLowerStrWordFirst(String replace) {
+//      可能有的字符串是 a.b.c..<-----------a/b/c/.中将 / 替换成 .  而得到的
+//      这一步可能会漏掉 ..
+        String[] strs=replace.split("\\.");
+        String[] strReplace=new String[strs.length];
+        for(int i=0;i<strs.length;i++){
+            strReplace[i]= StringUtils.toLowerCaseFirstOne(strs[i]);
+        }
+        if(replace.endsWith("..")){
+//            在这里要添加上  ..
+            return String.join(".",strReplace)+"..";
+        }
+        return  String.join(".",strReplace);
+    }
+
     @Override
     public Set<String> parseTable(Document document, String tableName, String parentPath) throws Exception {
 //        利用set去重
@@ -95,7 +113,8 @@ public class MyXmlParser implements IXmlParser {
                     path=parentPath+"\\"+path;
                 }
  //                替换@字符，避免Java命名不规范,只有key替换
-                keyValueSet.add(path.replace("\\",".").replace("@","")+"="+path.replace("\\","/"));
+                String toLowerPath1=this.toLowerStrWordFirst(path.replace("\\",".").replace("@",""));
+                keyValueSet.add(toLowerPath1+"="+path.replace("\\","/"));
 //            System.out.println(path.getValue());
             }
         }
@@ -113,7 +132,8 @@ public class MyXmlParser implements IXmlParser {
                             path=parentPath+"\\"+path;
                         }
 //                替换@字符，避免Java命名不规范，只有key值替换
-                        keyValueSet.add(path.replace("\\",".").replace("@","")+"="+path.replace("\\","/"));
+                        String toLowerPath2=this.toLowerStrWordFirst(path.replace("\\",".").replace("@",""));
+                        keyValueSet.add(toLowerPath2+"="+path.replace("\\","/"));
 //                        keyValue.append(path.replace("\\",".")+"="+path.replace("\\","/")+"\r\n");
                     }
                 }
