@@ -28,6 +28,7 @@ public class MyXmlParser implements IXmlParser {
         return this.parse(doc);
     }
 
+
     @Override
     public String parse(Document document) throws Exception {
         StringBuilder keyValue=new StringBuilder();
