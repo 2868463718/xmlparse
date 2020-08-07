@@ -40,8 +40,13 @@ class XmlparseApplicationTests {
 //        FileUtils.writeStringToFile(new File("C:\\Users\\DELL\\Desktop\\cbrRefactor\\xmlparse\\src\\main\\resources\\ConsumerBestRecord_OperationConfig.properties"),str,"utf8");
 //        FileUtils.writeStringToFile(new File("C:\\Users\\DELL\\Desktop/a.text"),str,"utf8");
 //        C:\Users\DELL\Desktop\cbrRefactor\common-cbr\src\main\resources\ConsumerBestRecord_OperationConfig.properties
-        FileUtils.writeStringToFile(new File("C:\\Users\\DELL\\Desktop\\cbrRefactor\\common-cbr\\src\\main\\resources\\ConsumerBestRecord_OperationConfig.yml"),str,"utf8");
+        FileUtils.writeStringToFile(new File("C:\\Users\\DELL\\Desktop\\cbrRefactor\\common-cbr\\src\\main\\resources\\application-ConsumerBestRecord_OperationConfig.yml"),str,"utf8");
 
+    }
+
+    @Test
+    void testParsePathToYml(){
+       System.out.println(myXmlParserToYml.parsePathToYml("consumerBestRecord/derivedBestRecordList/derivedBestRecord/auxiliaryAttributeList/auxiliaryAttribute/active"));
     }
 
 }
